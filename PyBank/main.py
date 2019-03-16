@@ -8,48 +8,70 @@ PyBank_csv = os.path.join("../PyBank", "Python_PyBank_Resources_budget_data.csv"
 with open(PyBank_csv, newline = '') as csvfile:
     csvreader = csv.reader(csvfile, delimiter = ",")
 
-    #Read the header row first (check that its reading csv file properly)
+    #Read the header row first
     csv_header = next(csvfile)
-    print(f"Header: {csv_header}")
 
-    #create a dictionary of the values in PyBank_csv (and print to check that it works)
-    mydict = {rows[0]:int(rows[1]) for rows in csvreader}
-    print(mydict)
+    #create a two lists from csv data - one for dates and one for profit/loss
+    Dates = []
+    ProfitLoss = []
+    
+    for row in csvreader:
+        Dates.append(str(row[0]))
+        ProfitLoss.append(int(row[1]))
 
     #Calculate number of months in data and create variable to hold the number
-    NumMonths = len(mydict)
+    TotalMonths = len(Dates)
     
     #Calculate total profit/loss and create a variable to hold the sum
-    TotalProfit = sum(mydict.values())
+    TotalPL = sum(ProfitLoss)
     
-    #average change = (sum profit/loss - first profit/loss)/total num of months
-    AverageChange = TotalProfit/NumMonths
+    #Create new list based on the difference between each value in ProfitLoss list
+    MonthlyChange = [ProfitLoss[i+1]-ProfitLoss[i] for i in range(len(ProfitLoss)-1)]
 
-    #add monthly change to dictionary - monthly change equals current profit/loss - previous profit/loss
-    oldkey="Jan-2010"
-    for key in mydict.keys():
-        MonthlyChange = mydict(key)-mydict(oldkey)
-        oldkey = key
-        print(MonthlyChange)
+    #Calculate average of the values in MonthlyChange
+    TotalMC = sum(MonthlyChange)
+    LengthMC = len(MonthlyChange)
+    AverageMC = float(TotalMC/LengthMC)
 
-        #greatest increase = largest monthly change
+    #greatest increase = largest monthly change
+    GreatestIncrease = max(MonthlyChange)
+    GreatestMonth = Dates[MonthlyChange.index(GreatestIncrease)+1]
 
-        #greatest decrease = smallest monthly change
+    #greatest decrease = smallest monthly change
+    GreatestDecrease = min(MonthlyChange)
+    MinMonth = Dates[MonthlyChange.index(GreatestDecrease)+1]
 
-    #print results (look up how to go to next line so can print in one command) 
+    #print results  
     print(f"Financial Analysis")   
         # spacer row of "---------------------------"
     print(f"---------------------------------------------------")    
         # "Total Months: " (total num of months)
-    print(f"Total Months: {NumMonths}")
+    print(f"Total Months: {TotalMonths}")
         # "Total: " (sum profit/loss)
-    print(f"Total: {TotalProfit}")
+    print(f"Total: ${TotalPL}")
         # "Average Change: "
-    print(f"Average Change: {AverageChange}")
+    print(f"Average Change: ${AverageMC:.2f}")
         # "Greatest Increase in Profits: "(month and amount)
-    print(f"Greatest Increase in Profits: ")
+    print(f"Greatest Increase in Profits: {GreatestMonth} (${GreatestIncrease})")
         # "Greatest Decrease in Profits: " (month and amount)
-    print(f"Greatest Decrease in Profits: ")
+    print(f"Greatest Decrease in Profits: {MinMonth} (${GreatestDecrease})")
 
     #export a text file with results (how do we do that?)
+    
+    file = open("PyBank_Results.txt", "w")
+    
+    file.write(f"Financial Analysis\n")   
+        # spacer row of "---------------------------"
+    file.write(f"---------------------------------------------------\n")    
+        # "Total Months: " (total num of months)
+    file.write(f"Total Months: {TotalMonths}\n")
+        # "Total: " (sum profit/loss)
+    file.write(f"Total: ${TotalPL}\n")
+        # "Average Change: "
+    file.write(f"Average Change: ${AverageMC:.2f}\n")
+        # "Greatest Increase in Profits: "(month and amount)
+    file.write(f"Greatest Increase in Profits: {GreatestMonth} (${GreatestIncrease})\n")
+        # "Greatest Decrease in Profits: " (month and amount)
+    file.write(f"Greatest Decrease in Profits: {MinMonth} (${GreatestDecrease})\n")
 
+    file.close()

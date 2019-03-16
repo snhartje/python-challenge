@@ -46,7 +46,7 @@ with open(PyPoll_csv, newline = '') as csvfile:
     #Sort Results in descending order based on votes
     Results.sort(key=lambda x: x[2], reverse = True)
 
-    #print results (look up how to go to next line so can print in one command) 
+    #print results
     print(f"Election Results")   
     # spacer row of "---------------------------"
     print(f"---------------------------------------------------")    
@@ -67,3 +67,26 @@ with open(PyPoll_csv, newline = '') as csvfile:
     print(f"---------------------------------------------------")
 
     #export a text file with results (how do we do that?)
+    
+    file = open("PyPoll_Results.txt", "w")
+
+    file.write(f"Election Results\n")   
+    # spacer row of "---------------------------"
+    file.write(f"---------------------------------------------------\n")    
+    # "Total Votes: "
+    file.write(f"Total Votes: {TotalVotes}\n")
+    # spacer row of "---------------------------"
+    file.write(f"---------------------------------------------------\n") 
+    # Each candidate: % of votes, (total # of votes)
+    file.write(f"{Results[0][0]}: {Results[0][1]:.3%} ({Results[0][2]})\n")
+    file.write(f"{Results[1][0]}: {Results[1][1]:.3%} ({Results[1][2]})\n")
+    file.write(f"{Results[2][0]}: {Results[2][1]:.3%} ({Results[2][2]})\n")
+    file.write(f"{Results[3][0]}: {Results[3][1]:.3%} ({Results[3][2]})\n")
+    # spacer row of "---------------------------"
+    file.write(f"---------------------------------------------------\n") 
+    # Winner's name
+    file.write(f"Winner: {Results[0][0]}\n")
+    # spacer row of "---------------------------"
+    file.write(f"---------------------------------------------------\n")
+
+    file.close()
