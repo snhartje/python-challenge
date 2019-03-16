@@ -1,3 +1,4 @@
+Stephanie Hartje - March 16, 2019 - Homework: 03-Python
 Election Results
 ---------------------------------------------------
 Total Votes: 3521001

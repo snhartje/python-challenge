@@ -1,3 +1,5 @@
+# Stephanie Hartje - March 16, 2019 - Homework: 03-Python 
+
 # Import modules and list file path
 import os
 import csv
@@ -56,9 +58,11 @@ with open(PyBank_csv, newline = '') as csvfile:
         # "Greatest Decrease in Profits: " (month and amount)
     print(f"Greatest Decrease in Profits: {MinMonth} (${GreatestDecrease})")
 
-    #export a text file with results (how do we do that?)
+    #export a text file with results
     
     file = open("PyBank_Results.txt", "w")
+    
+    file.write("Stephanie Hartje - March 16, 2019 - Homework: 03-Python\n")
     
     file.write(f"Financial Analysis\n")   
         # spacer row of "---------------------------"

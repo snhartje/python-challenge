@@ -1,3 +1,5 @@
+# Stephanie Hartje - March 16, 2019 - Homework: 03-Python
+
 # Import modules and list file path
 import os
 import csv
@@ -70,6 +72,8 @@ with open(PyPoll_csv, newline = '') as csvfile:
     
     file = open("PyPoll_Results.txt", "w")
 
+    file.write("Stephanie Hartje - March 16, 2019 - Homework: 03-Python\n")
+    
     file.write(f"Election Results\n")   
     # spacer row of "---------------------------"
     file.write(f"---------------------------------------------------\n")    
